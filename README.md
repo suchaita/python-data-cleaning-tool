@@ -22,9 +22,9 @@ This design follows real-world Python project structure and separation of concer
 
 python-data-cleaning-tool/
     main.py # Entry-point script
-    cleaner.py # Reusable data cleaning module
+    , cleaner.py # Reusable data cleaning module
     data/
-        sample_data.csv # Input dataset
+        ,sample_data.csv # Input dataset
         cleaned_output.csv # Generated cleaned output
 
 
