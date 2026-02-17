@@ -21,7 +21,7 @@ class DataCleaner:
         
         self.df[column_name] = (
             self.df[column_name]
-            .fillna("Unknown", inplace=False)   # Fill any missing values in the specified column with an empty string
+            .fillna("Unknown")   # Fill any missing values in the specified column with an empty string
         )
 
     def save_data(self, output_path):
