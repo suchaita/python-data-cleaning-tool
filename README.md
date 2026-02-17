@@ -91,28 +91,6 @@ This project was built to demonstrate:
 
 ---
 
-## 🎯 Purpose
-
-This project was built to demonstrate:
-
-- Object-Oriented Programming (OOP)
-- Modular Python design
-- Clean execution control using `__name__`
-- Practical Pandas usage
-- Debugging and structured development
-
----
-
-## 📌 Future Improvements
-
-- Add logging instead of print statements
-- Add CLI argument support for file paths
-- Add automated column detection
-- Add data validation checks
-- Add unit tests
-
----
-
 ## 👩‍🎓 Author
 **Suchaita Halder**  
 Student | Machine Learning Learner
