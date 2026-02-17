@@ -94,4 +94,5 @@ This project was built to demonstrate:
 ## 👩‍🎓 Author
 **Suchaita Halder**  
 Student | Machine Learning Learner
+
 Developed as part of internship preparation to demonstrate structured Python development and data handling skills.
