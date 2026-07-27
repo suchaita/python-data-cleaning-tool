@@ -1,5 +1,9 @@
 WHEN TO USE __name__
 
+__name__ is a special built-in module variable automatically created by Python. It stores the name of the current module. When a file is run directly, its value is "__main__". When imported, its value is the module's name. This behavior is used with if __name__ == "__main__": to control execution.
+
+HOW? 
+
 Use if __name__ == "__main__": when a Python file contains execution code that should run only when the file is executed directly.
 Examples:
 Calling functions
