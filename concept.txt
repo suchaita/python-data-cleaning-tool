@@ -1,0 +1,10 @@
+WHEN TO USE __name__
+
+Use if __name__ == "__main__": when a Python file contains execution code that should run only when the file is executed directly.
+Examples:
+Calling functions
+Creating objects and using them
+Running tests
+Printing output
+Starting the main program flow
+If a file only contains definitions (classes, functions, constants, reusable logic) and no code that needs to execute immediately, then if __name__ == "__main__": is usually unnecessary.
