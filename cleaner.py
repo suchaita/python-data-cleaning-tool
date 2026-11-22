@@ -1,28 +1,49 @@
-# Module (reusable component)
+"""Reusable CSV data-cleaning utilities built with Pandas."""
+
+from pathlib import Path
 
 import pandas as pd
-# self = current object, df = data frame, column_name = name of the column to be cleaned, output_path = path where the cleaned data will be saved, path = path to the CSV file to be loaded.
+
+
 class DataCleaner:
+    """Load, clean, and save a CSV dataset."""
 
-    def __init__(self, path): # Initialize the DataCleaner with the path to the CSV file
-        self.path = path 
-        self.df = None # Initialize the DataFrame to None
+    def __init__(self, path):
+        self.path = Path(path)
+        self.df = None
 
-    def load_data(self): 
-        self.df = pd.read_csv(self.path) # Load the CSV file into a DataFrame
+    def _ensure_data_loaded(self):
+        """Raise an error when a cleaning operation runs before loading data."""
+        if self.df is None:
+            raise RuntimeError("No data loaded. Call load_data() before this operation.")
 
-    def remove_duplicates(self): 
-        self.df = self.df.drop_duplicates() # Remove duplicate rows from the DataFrame. drop_duplicates()- is a method belonging to a specific  Pandas DataFrame object (or Series object),  that removes duplicate rows from a DataFrame. It returns a new DataFrame with duplicate rows removed. By default, it considers all columns to identify duplicates, but you can specify specific columns to check for duplicates using the subset parameter. The function also has an inplace parameter that allows you to modify the original DataFrame directly without creating a new one. If inplace=True, the original DataFrame will be modified and the function will return None. If inplace=False (default), a new DataFrame with duplicates removed will be returned, and the original DataFrame will remain unchanged.
+    def load_data(self):
+        """Load the configured CSV file into a Pandas DataFrame."""
+        self.df = pd.read_csv(self.path)
+        return self.df
 
-    def clean_column(self, column_name):
+    def remove_duplicates(self):
+        """Remove fully duplicated rows and return the number of rows removed."""
+        self._ensure_data_loaded()
+        original_count = len(self.df)
+        self.df = self.df.drop_duplicates()
+        return original_count - len(self.df)
+
+    def clean_column(self, column_name, fill_value="Unknown"):
+        """Fill missing values in a column and return the updated Series."""
+        self._ensure_data_loaded()
+
         if column_name not in self.df.columns:
-            print(f"Column '{column_name}' not found.")
-            return
-        
-        self.df[column_name] = (
-            self.df[column_name]
-            .fillna("Unknown")   # Fill any missing values in the specified column with an empty string
-        )
+            raise KeyError(f"Column '{column_name}' not found in the dataset.")
+
+        self.df[column_name] = self.df[column_name].fillna(fill_value)
+        return self.df[column_name]
 
     def save_data(self, output_path):
-        self.df.to_csv(output_path, index=False) # Save the cleaned DataFrame to a new CSV file at the specified output path, without including the index in the output file.
+        """Save the cleaned DataFrame to a CSV file without its index."""
+        self._ensure_data_loaded()
+
+        output_path = Path(output_path)
+        output_path.parent.mkdir(parents=True, exist_ok=True)
+        self.df.to_csv(output_path, index=False)
+        return output_path
