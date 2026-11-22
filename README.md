@@ -1,98 +1,116 @@
-# 🧹 Python Data Cleaning Tool
+# Python Data Cleaning Tool
 
-A modular data cleaning tool built using Python and Pandas.  
-This project demonstrates clean architecture, reusable components, and structured execution using the `__main__` entry-point pattern.
+A small, reusable CSV data-cleaning project built with **Python** and **Pandas**. It demonstrates how to separate data-processing logic into a reusable class and keep the execution workflow in a dedicated entry-point script.
 
----
+## Overview
 
-## 📌 Project Overview
+The application reads a CSV file, removes duplicate rows, fills missing values in selected columns, and saves the cleaned dataset to a new CSV file.
 
-This tool loads a CSV dataset, performs basic cleaning operations, and saves the cleaned output to a new file.
+The included sample dataset is a Titanic passenger dataset used for demonstration and practice.
 
-The project is structured with:
-- A reusable logic module (`cleaner.py`)
-- An execution entry-point (`main.py`)
-- A separate `data/` directory for input and output files
+## Features
 
-This design follows real-world Python project structure and separation of concerns.
-
----
-
-## 🗂 Project Structure
-
-python-data-cleaning-tool/
-    main.py # Entry-point script
-    , cleaner.py # Reusable data cleaning module
-    data/
-        ,sample_data.csv # Input dataset
-        cleaned_output.csv # Generated cleaned output
-
-
----
-
-## ⚙️ Features
-
-- Load CSV files using Pandas
+- Load data from a CSV file with Pandas
 - Remove duplicate rows
-- Clean specific columns
-  - Handle missing values (`NaN`)
-  - Replace missing values with `"Unknown"`
-- Save cleaned data to a new CSV file
-- Clear separation between logic and execution
+- Fill missing values in selected columns with a configurable value (defaults to `"Unknown"`)
+- Save the cleaned dataset as a new CSV file
+- Keep reusable cleaning logic separate from the main execution script
+- Resolve input and output paths relative to the project, so the script can be run from another working directory
 
----
+## Project Structure
 
-## 🧠 Technical Design
+```text
+python-data-cleaning-tool/
+├── cleaner.py              # Reusable DataCleaner class
+├── main.py                 # Application entry point
+├── requirements.txt        # Python dependencies
+├── .gitignore
+└── data/
+    ├── sample_data.csv     # Input sample dataset
+    └── cleaned_output.csv  # Generated after running the script
+```
+
+## Requirements
+
+- Python 3.9 or newer
+- Pandas
+
+## Setup and Run
+
+1. Clone the repository and open its directory:
+
+   ```bash
+   git clone https://github.com/suchaita/python-data-cleaning-tool.git
+   cd python-data-cleaning-tool
+   ```
+
+2. (Recommended) Create and activate a virtual environment:
+
+   ```bash
+   python -m venv .venv
+   ```
+
+   Windows PowerShell:
+
+   ```powershell
+   .venv\Scripts\Activate.ps1
+   ```
+
+   macOS/Linux:
+
+   ```bash
+   source .venv/bin/activate
+   ```
+
+3. Install the dependency:
+
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+4. Run the application from the project directory:
+
+   ```bash
+   python main.py
+   ```
+
+The cleaned file is written to `data/cleaned_output.csv`. The script also prints a preview of the original and cleaned data.
+
+## Code Organization
 
 ### `cleaner.py`
-Contains the `DataCleaner` class responsible for:
-- Loading data
-- Removing duplicates
-- Cleaning selected columns
-- Saving output
 
-This file acts as a reusable module.
+Defines the `DataCleaner` class, which provides methods to:
 
----
+- Load a CSV file into a DataFrame
+- Remove duplicate rows
+- Fill missing values in a specified column
+- Save the cleaned DataFrame to a CSV file
+
+The class checks that data has been loaded before cleaning or saving. It raises a clear error if a requested column does not exist.
 
 ### `main.py`
-Acts as the entry-point script.
 
----
+Coordinates the workflow: creates a `DataCleaner` instance, loads the sample dataset, applies the selected cleaning operations, and saves the result. The `if __name__ == "__main__"` guard ensures the workflow runs only when the script is executed directly.
 
-## 📊 Output
+## Concepts Demonstrated
 
-The script will:
+- Python modules and imports
+- Classes, objects, and instance methods
+- Separation of concerns and reusable code
+- The `if __name__ == "__main__"` entry-point pattern
+- CSV handling and basic data cleaning with Pandas
+- File paths and exception handling
 
-- Print the first 5 rows of the original dataset  
-- Perform cleaning operations  
-- Save cleaned data to: data/cleaned_output.csv
-
----
-## 🎯 Purpose
-
-This project was built to demonstrate:
-
-- Object-Oriented Programming (OOP)
-- Modular Python design
-- Clean execution control using `__name__`
-- Practical Pandas usage
-- Debugging and structured development
-
----
-
-## 📌 Future Improvements
+## Possible Future Improvements
 
 - Add logging instead of print statements
-- Add CLI argument support for file paths
-- Add automated column detection
-- Add data validation checks
-- Add unit tests
+- Support command-line arguments for input and output paths
+- Add configurable cleaning strategies and data validation
+- Add automated unit tests
 
----
+## Author
 
-## 👩‍🎓 Author
-**Suchaita Halder**  
-Student | Machine Learning Learner
+**Suchaita Halder**
 
-Developed as part of internship preparation to demonstrate structured Python development and data handling skills.
+A learning project demonstrating modular Python programming and practical data handling.
